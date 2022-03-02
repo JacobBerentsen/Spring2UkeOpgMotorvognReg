@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="no">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Kunder</title>
+    <style>
+
+         input {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+  <h1>MotorvognRegister</h1>
+  <form class="form">
+      <div class="form-group"><label for="persnr">Eierns personnummer:</label><input type="text" id="persnr" value="12345678910"/></div>
+      <div class="form-group"><label for="navn">Eierns navn:</label><input type="text" id="navn" value="Ola Nordmann"/></div>
+      <div class="form-group"><label for="adresse">Eierns adresse:</label><input type="text" id="adresse" value="Osloveien 51"/></div>
+      <div class="form-group"><label for="bilnr">Bilnr:</label><input type="text" id="bilnr" value="GT123"/></div>
+      <div class="form-group"><label for="bilMerke">Bil Merke:</label><input type="text" id="bilMerke" value="BMW"/></div>
+      <div class="form-group"><label for="bilType">Bil Type:</label><input type="text" id="bilType" value="M4"/></div>
+  </form>
+    <button class="btn btn-success" onclick="regBil()">Registrer</button><button class="btn btn-primary" onclick="fyllInput()">Fyll inputene</button><br/>
+</div>
+
+    <div class="col-md-6">
+        <h2>Alle bilene:</h2>
+        <div id="bilene"></div>
+        `<button class="btn btn-danger" onclick="slettAlle()">Slett alle</button>`
+    </div>
+</div>
+</div>
+<script type="application/javascript">
+    function regBil() {
+        const bil = {
+            persnr : $("#persnr").val(),
+            navn : $("#navn").val(),
+            adresse : $("#adresse").val(),
+            bilnr : $("#bilnr").val(),
+            bilmerke : $("#bilMerke").val(),
+            biltype : $("#bilType").val()
+        };
+        $.post("/lagre", bil, function(){
+            hentAlle();
+        });
+        //tøm input-feltene
+        $("#persnr").val("");
+        $("#navn").val("");
+        $("#adresse").val("");
+        $("#bilnr").val("");
+        $("#bilMerke").val("");
+        $("#bilType").val("");
+    }
+
+    function fyllInput() {
+        $("#persnr").val("123456789");
+        $("#navn").val("Ola Normann");
+        $("#adresse").val("Osloveien 51");
+        $("#bilnr").val("GT123");
+        $("#bilMerke").val("BMW");
+        $("#bilType").val("M4");
+
+    }
+
+    function hentAlle() {
+        $.get( "/hentAlle", function( data ) {
+            formaterData(data);
+        });
+    }
+
+    function slettAlle() {
+        $.get( "/slettAlle", function( data ) {
+            formaterData(data);
+        });
+    }
+
+    function formaterData(biler){
+        let ut = "<table class='table table-striped'><tr><th>Personnummer</th><th>Navn</th><th>Adresse</th>" +
+            "<th>Bilnr</th><th>Bil merke</th><th>Bil type</th></tr>";
+
+        for (const bil of biler){
+            ut+="<tr><td>"+bil.persnr+"</td><td>"+bil.navn+"</td><td>"+bil.adresse+"</td>" +
+                "<td>"+bil.bilnr+"</td><td>"+bil.bilmerke+"</td><td>"+bil.biltype+"</td></tr>";
+        }
+        ut+="</table>";
+        $("#bilene").html(ut);
+    }
+</script>
+</body>
+</html>
