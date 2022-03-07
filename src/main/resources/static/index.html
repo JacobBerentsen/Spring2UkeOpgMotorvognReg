@@ -42,34 +42,42 @@
 </div>
 </div>
 <script type="application/javascript">
+
+    const persnr = $("#persnr").val();
+    const navn = $("#navn").val();
+    const adresse = $("#adresse").val();
+    const bilnr = $("#bilnr").val();
+    const bilmerke = $("#bilMerke").val();
+    const biltype = $("#bilType").val();
+
     function regBil() {
         const bil = {
-            persnr : $("#persnr").val(),
-            navn : $("#navn").val(),
-            adresse : $("#adresse").val(),
-            bilnr : $("#bilnr").val(),
-            bilmerke : $("#bilMerke").val(),
-            biltype : $("#bilType").val()
+            persnr,
+            navn ,
+            adresse,
+            bilnr,
+            bilmerke,
+            biltype
         };
         $.post("/lagre", bil, function(){
             hentAlle();
         });
         //tøm input-feltene
-        $("#persnr").val("");
-        $("#navn").val("");
-        $("#adresse").val("");
-        $("#bilnr").val("");
-        $("#bilMerke").val("");
-        $("#bilType").val("");
+        persnr.val("");
+        navn.val("");
+        adresse.val("");
+        bilnr.val("");
+        bilmerke.val("");
+        biltype.val("");
     }
 
     function fyllInput() {
-        $("#persnr").val("123456789");
-        $("#navn").val("Ola Normann");
-        $("#adresse").val("Osloveien 51");
-        $("#bilnr").val("GT123");
-        $("#bilMerke").val("BMW");
-        $("#bilType").val("M4");
+        persnr.val("123456789");
+        navn.val("Ola Normann");
+        adresse.val("Osloveien 51");
+        bilnr.val("GT123");
+        bilmerke.val("BMW");
+        biltype.val("M4");
 
     }
 
