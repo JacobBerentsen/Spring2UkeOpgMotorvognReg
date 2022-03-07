@@ -43,21 +43,21 @@
 </div>
 <script type="application/javascript">
 
-    let persnr = $("#persnr").val();
-    let navn = $("#navn").val();
-    let adresse = $("#adresse").val();
-    let bilnr = $("#bilnr").val();
-    let bilmerke = $("#bilMerke").val();
-    let biltype = $("#bilType").val();
+    let persnr = $("#persnr");
+    let navn = $("#navn");
+    let adresse = $("#adresse");
+    let bilnr = $("#bilnr");
+    let bilmerke = $("#bilMerke");
+    let biltype = $("#bilType");
 
     function regBil() {
         const bil = {
-            persnr,
-            navn ,
-            adresse,
-            bilnr,
-            bilmerke,
-            biltype
+            persnr: persnr.val(),
+            navn: navn.val(),
+            adresse: adresse.val(),
+            bilnr: bilnr.val(),
+            bilmerke: bilmerke.val(),
+            biltype: biltype.val()
         };
         $.post("/lagre", bil, function(){
             hentAlle();
