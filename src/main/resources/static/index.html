@@ -43,12 +43,12 @@
 </div>
 <script type="application/javascript">
 
-    const persnr = $("#persnr").val();
-    const navn = $("#navn").val();
-    const adresse = $("#adresse").val();
-    const bilnr = $("#bilnr").val();
-    const bilmerke = $("#bilMerke").val();
-    const biltype = $("#bilType").val();
+    let persnr = $("#persnr").val();
+    let navn = $("#navn").val();
+    let adresse = $("#adresse").val();
+    let bilnr = $("#bilnr").val();
+    let bilmerke = $("#bilMerke").val();
+    let biltype = $("#bilType").val();
 
     function regBil() {
         const bil = {
@@ -63,12 +63,13 @@
             hentAlle();
         });
         //tøm input-feltene
-        persnr.val("");
-        navn.val("");
-        adresse.val("");
-        bilnr.val("");
-        bilmerke.val("");
-        biltype.val("");
+        persnr = "";
+        //persnr.val('');
+        navn.val('');
+        adresse.val('');
+        bilnr.val('');
+        bilmerke.val('');
+        biltype.val('');
     }
 
     function fyllInput() {
